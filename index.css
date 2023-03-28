@@ -4,33 +4,40 @@ title {
 }
 .tiaoz{
 	text-align: center;
-	font-size: 40px;
+	color:skyblue;
+	font-size: 20px;
 }
 .h1 {
-	color:pink;text-align: center;font-size:50px;
+	color:pink;
+	font-size:30px;
+	text-align: center;
 }
-.h2 {
-	color:orange;text-align: center;
+.lianjie {
+	color:orange;
+	text-align: center;
 	}
-	
+.lianjie2{
+	color:orange;
+	text-decoration:none;
+}
 .imgmid{
 	text-align:center;
 }
 .button1 {
  -webkit-transition-duration: 0.4s;
  transition-duration: 0.4s;
- padding: 6px 12px;
- font-size: 40px;
+ padding: 4px;
+ font-size: 20px;
  text-align: center;
  background-color: lightblue;
  color: black;
  border: 2px solid #4CAF50;
  border-radius:5px;
- width: 250px;
  }
  .button1:hover {
  background-color: royalblue;
  color: white;
+ text-decoration:none;
  }
  
  .wb{
