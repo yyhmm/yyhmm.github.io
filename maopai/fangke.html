@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>关键词访客分配</title>
+</head>
+<body>
+    <h1>关键词访客分配</h1>
+    <p>请输入两个关键词，用空格隔开：</p>
+    <input type="text" id="exclude">
+    <button onclick="distribute()">开始分配</button>
+    <p id="result"></p>
+
+    <script>
+        function distribute() {
+            let exclude = document.getElementById("exclude").value.split(" ");
+            let children = ["徽章定做", "徽章定制", "胸针定制", "徽章", "校徽定制", "金属徽章定做", "勋章定做", "勋章", "胸牌定制", "定制胸针", "定制徽章"];
+            let result = "";
+            let apples = 25;
+
+            for (let i = 0; i < exclude.length; i++) {
+                let index = children.indexOf(exclude[i]);
+                if (index > -1) {
+                    children.splice(index, 1);
+                }
+            }
+
+            for (let i = 0; i < 3; i++) {
+                let childIndex = Math.floor(Math.random() * children.length);
+                let child = children[childIndex];
+                children.splice(childIndex, 1);
+
+                let appleCount = Math.floor(Math.random() * (apples - (3 - i - 1))) + 1;
+                apples -= appleCount;
+
+                result += child + " 应分配 " + appleCount + " 个访客<br>";
+            }
+
+            document.getElementById("result").innerHTML = result;
+        }
+    </script>
+</body>
+</html>
