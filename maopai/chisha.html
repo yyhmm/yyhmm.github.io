@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>happy happy happy~~~</title>
+	<script type="text/javascript">
+		function generateFood() {
+			var price = Math.random();
+			var food = "";
+			if (price < 0.5) {
+				var foodList = ["饺子", "面+烧烤", "小面"];
+				food = foodList[Math.floor(Math.random() * foodList.length)];
+			} else if (price < 0.8) {
+				var foodList = ["麻婆豆腐", "麻辣香锅", "麻辣烫"];
+				food = foodList[Math.floor(Math.random() * foodList.length)];
+			} else {
+				var foodList = ["串串", "火锅"];
+				food = foodList[Math.floor(Math.random() * foodList.length)];
+			}
+			document.getElementById("food").innerHTML = food;
+		}
+	</script>
+</head>
+<body>
+	<h1>happy happy happy~~</h1>
+	<p>点击下面的按钮以生成随机食品：</p>
+	<button onclick="generateFood()">生成</button>
+	<p>你应该吃：<span id="food"></span></p>
+</body>
+</html>
