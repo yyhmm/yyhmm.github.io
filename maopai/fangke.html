@@ -1,43 +1,117 @@
-<!DOCTYPE html>
 <html>
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>关键词访客分配</title>
-</head>
-<body>
-    <h1>关键词访客分配</h1>
-    <p>请输入两个关键词，用空格隔开：</p>
-    <input type="text" id="exclude">
-    <button onclick="distribute()">开始分配</button>
-    <p id="result"></p>
+	<head>
+		<style>
+			.container {
+				width: 500px;
+				margin: 0 auto;
+				padding: 20px;
+				text-align: left;
+			}
 
-    <script>
-        function distribute() {
-            let exclude = document.getElementById("exclude").value.split(" ");
-            let children = ["徽章定做", "徽章定制", "胸针定制", "徽章", "校徽定制", "金属徽章定做", "勋章定做", "勋章", "胸牌定制", "定制胸针", "定制徽章"];
-            let result = "";
-            let apples = 25;
-
-            for (let i = 0; i < exclude.length; i++) {
-                let index = children.indexOf(exclude[i]);
-                if (index > -1) {
-                    children.splice(index, 1);
-                }
-            }
-
-            for (let i = 0; i < 3; i++) {
-                let childIndex = Math.floor(Math.random() * children.length);
-                let child = children[childIndex];
-                children.splice(childIndex, 1);
-
-                let appleCount = Math.floor(Math.random() * (apples - (3 - i - 1))) + 1;
-                apples -= appleCount;
-
-                result += child + " 应分配 " + appleCount + " 个访客<br>";
-            }
-
-            document.getElementById("result").innerHTML = result;
-        }
-    </script>
-</body>
+			label {
+				display: inline-block;
+				width: 120px;
+				position: relative;
+				vertical-align: middle;
+				text-align: left;
+				line-height: 2em;
+			}
+		</style>
+		<script>
+			//定义一个函数，用来实现随机分配的功能
+			function assign() {
+				//获取用户输入的x的值
+				var x = document.getElementById("x").value;
+				//获取用户选择的排除名单
+				var exclude = [];
+				var checkboxes = document.getElementsByName("exclude");
+				for (var i = 0; i < checkboxes.length; i++) {
+					if (checkboxes[i].checked) {
+						exclude.push(checkboxes[i].value);
+					}
+				}
+				//定义一个数组，存储14个人的名字
+				var names = ["徽章定做", "徽章定制", "胸针定制", "徽章", "金属徽章定制", "定制徽章", "胸章定做", "勋章定做", "定制胸针", "胸牌定制", "勋章", "徽章制作定做",
+					"胸针定制logo", "金属徽章定做"
+				];
+				//过滤掉排除名单中的名字
+				names = names.filter(function(name) {
+					return !exclude.includes(name);
+				});
+				//定义一个对象，存储分配结果
+				var result = {};
+				//随机从剩余名单中选择3个人
+				for (var i = 0; i < 3; i++) {
+					var index = Math.floor(Math.random() * names.length);
+					var name = names[index];
+					//将选择的人从剩余名单中移除
+					names.splice(index, 1);
+					//将选择的人作为结果对象的属性，并初始化为0
+					result[name] = 0;
+				}
+				//随机分配x个访客给3个人
+				for (var i = 0; i < x; i++) {
+					//随机选择一个结果对象的属性
+					var name = Object.keys(result)[Math.floor(Math.random() * 3)];
+					//将该属性的值加一
+					result[name]++;
+				}
+				//获取显示结果的段落元素
+				var output = document.getElementById("output");
+				//清空段落内容
+				output.innerHTML = "";
+				//遍历结果对象，将每个属性和值拼接成一行文本，并添加到段落内容中
+				for (var name in result) {
+					output.innerHTML += name + ": " + result[name] + "<br>";
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div class="container">
+			<h1>访客随机分配</h1>
+			<form>
+				<p>请输入要分配的访客数量：</p>
+				<input type="number" id="x" min="1" max="100">
+				<p>请选择最多三个关键词，排除它们：</p>
+				<input type="checkbox" id="徽章定做" name="exclude" value="徽章定做">
+				<label for="a">徽章定做</label>
+				<input type="checkbox" id="徽章定制" name="exclude" value="徽章定制">
+				<label for="b">徽章定制</label>
+				<input type="checkbox" id="胸针定制" name="exclude" value="胸针定制">
+				<label for="c">胸针定制</label>
+				<br>
+				<input type="checkbox" id="徽章" name="exclude" value="徽章">
+				<label for="d">徽章</label>
+				<input type="checkbox" id="金属徽章定制" name="exclude" value="金属徽章定制">
+				<label for="e">金属徽章定制</label>
+				<input type="checkbox" id="定制徽章" name="exclude" value="定制徽章">
+				<label for="f">定制徽章</label>
+				<br>
+				<input type="checkbox" id="胸章定做" name="exclude" value="胸章定做">
+				<label for="g">胸章定做</label>
+				<input type="checkbox" id="勋章定做" name="exclude" value="勋章定做">
+				<label for="h">勋章定做</label>
+				<input type="checkbox" id="定制胸针" name="exclude" value="定制胸针">
+				<label for="i">定制胸针</label>
+				<br>
+				<input type="checkbox" id="胸牌定制" name="exclude" value="胸牌定制">
+				<label for="j">胸牌定制</label>
+				<input type="checkbox" id="勋章" name="exclude" value="勋章">
+				<label for="k">勋章</label>
+				<input type="checkbox" id="徽章制作定做" name="exclude" value="徽章制作定做">
+				<label for="l">徽章制作定做</label>
+				<br>
+				<input type="checkbox" id="胸针定制logo" name="exclude" value="胸针定制logo">
+				<label for="m">胸针定制logo</label>
+				<input type="checkbox" id="金属徽章定做" name="exclude" value="金属徽章定做">
+				<label for="n">金属徽章定做</label>
+				
+				<p>点击下面的按钮，开始分配：</p>
+				<input type="button" value="分配" onclick="assign()">
+			</form>
+			<p>分配结果如下：</p>
+			<p id="output"></p>
+		</div>
+	</body>
 </html>
